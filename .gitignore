@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+coverage
+dist
+docs
+
+# these cause more harm than good
+# when working with contributors
+package-lock.json
+yarn.lock
