@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
   import { Grid } from "gridjs";
   import type { Language } from "gridjs/dist/src/i18n/language";
   import type { ServerStorageOptions } from "gridjs/dist/src/storage/server";
@@ -14,6 +14,8 @@
   } from "gridjs/dist/src/types";
 
   let node: Element;
+
+  const dispatch = createEventDispatcher();
 
   export let width: string = "100%";
   export let height: string = "auto";
@@ -73,6 +75,12 @@
     style,
     className,
   });
+
+  instance.on('cellClick', (...args) => dispatch('cellClick', {...args}))
+  instance.on('rowClick', (...args) => dispatch('rowClick', {...args}))
+  instance.on('beforeLoad', (...args) => dispatch('beforeLoad', {...args}))
+  instance.on('load', (...args) => dispatch('load', {...args}))
+  instance.on('ready', (...args) => dispatch('ready', {...args}))
 
   onMount(() => {
     if (node) {

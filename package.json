@@ -1,6 +1,6 @@
 {
   "name": "gridjs-svelte",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Svelte wrapper component for Grid.js",
   "svelte": "dist/index.js",
   "module": "dist/index.mjs",
