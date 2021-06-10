@@ -28,7 +28,7 @@
   "author": "Yusuf <hello@iamyuu.dev>",
   "license": "MIT",
   "peerDependencies": {
-    "gridjs": ">=3.2.0",
+    "gridjs": ">=4.0.0",
     "svelte": ">=3.30.0"
   },
   "devDependencies": {
