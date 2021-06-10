@@ -21,6 +21,7 @@
   export let height: string = "auto";
   export let autoWidth: boolean = true;
   export let fixedHeader: boolean = false;
+  export let resizable: boolean = false;
   export let from: HTMLElement = undefined;
   export let language: Language = undefined;
   export let search: SearchConfig | boolean = false;
@@ -74,6 +75,7 @@
     fixedHeader,
     style,
     className,
+    resizable,
   });
 
   instance.on('cellClick', (...args) => dispatch('cellClick', {...args}))
