@@ -89,7 +89,7 @@
       instance.render(node);
     }
   });
-  
+
   $: instance.updateConfig({
     from,
     data,
