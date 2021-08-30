@@ -90,24 +90,26 @@
     }
   });
 
-  $: instance.updateConfig({
-    from,
-    data,
-    columns,
-    server,
-    search,
-    sort,
-    pagination,
-    language,
-    width,
-    height,
-    autoWidth,
-    fixedHeader,
-    style,
-    className,
-    resizable,
-  }).forceRender();
-
+  $: if (node) {
+    instance
+      .updateConfig({
+        from,
+        data,
+        columns,
+        server,
+        search,
+        sort,
+        pagination,
+        language,
+        width,
+        height,
+        autoWidth,
+        fixedHeader,
+        style,
+        className,
+      })
+      .forceRender();
+  }
 </script>
 
 <article bind:this={node} />
