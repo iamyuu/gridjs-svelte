@@ -75,7 +75,7 @@
     fixedHeader,
     style,
     className,
-    resizable,
+    resizable
   });
 
   instance.on('cellClick', (...args) => dispatch('cellClick', {...args}))
@@ -107,6 +107,7 @@
         fixedHeader,
         style,
         className,
+        resizable
       })
       .forceRender();
   }
