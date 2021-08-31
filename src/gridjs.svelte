@@ -78,11 +78,11 @@
     resizable
   });
 
-  instance.on('cellClick', (...args) => dispatch('cellClick', {...args}))
-  instance.on('rowClick', (...args) => dispatch('rowClick', {...args}))
-  instance.on('beforeLoad', (...args) => dispatch('beforeLoad', {...args}))
-  instance.on('load', (...args) => dispatch('load', {...args}))
-  instance.on('ready', (...args) => dispatch('ready', {...args}))
+  instance.on("cellClick", (...args) => dispatch("cellClick", { ...args }));
+  instance.on("rowClick", (...args) => dispatch("rowClick", { ...args }));
+  instance.on("beforeLoad", (...args) => dispatch("beforeLoad", { ...args }));
+  instance.on("load", (...args) => dispatch("load", { ...args }));
+  instance.on("ready", (...args) => dispatch("ready", { ...args }));
 
   onMount(() => {
     if (node) {
