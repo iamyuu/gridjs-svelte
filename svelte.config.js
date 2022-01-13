@@ -1,5 +1,15 @@
-const sveltePreprocess = require('svelte-preprocess');
+import preprocess from "svelte-preprocess";
 
-module.exports = {
-  preprocess: sveltePreprocess()
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+	preprocess: preprocess(),
+
+	kit: {
+		package: {
+			dir: "dist",
+			files: (filepath) => !/.stories.svelte|.test.ts/g.test(filepath)
+		}
+	}
 };
+
+export default config;
