@@ -5,6 +5,8 @@
 	"description": "A Svelte wrapper component for Grid.js",
 	"scripts": {
 		"build": "svelte-kit package",
+		"test": "vitest run",
+		"test:watch": "vitest watch",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint --ignore-path .gitignore .",
@@ -22,12 +24,16 @@
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "next",
+		"@sveltejs/vite-plugin-svelte": "1.0.0-next.34",
+		"@testing-library/jest-dom": "5.16.1",
+		"@testing-library/svelte": "3.0.3",
 		"@typescript-eslint/eslint-plugin": "4.31",
 		"@typescript-eslint/parser": "4.31",
 		"eslint": "7.32",
 		"eslint-config-prettier": "8.3",
 		"eslint-plugin-svelte3": "3.2",
 		"gridjs": "5.0",
+		"jsdom": "19.0.0",
 		"prettier": "2.4",
 		"prettier-plugin-svelte": "2.4",
 		"svelte": "3.44",
@@ -35,7 +41,8 @@
 		"svelte-preprocess": "4.9",
 		"svelte2tsx": "0.4.13",
 		"tslib": "2.3",
-		"typescript": "4.4"
+		"typescript": "4.4",
+		"vitest": "0.0.142"
 	},
 	"repository": {
 		"type": "git",
