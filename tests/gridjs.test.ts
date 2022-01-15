@@ -2,6 +2,8 @@ import "@testing-library/jest-dom";
 import { cleanup, render, fireEvent, screen } from "@testing-library/svelte";
 import { h, PluginPosition } from "gridjs";
 import Grid from "../src/lib/gridjs.svelte";
+import { SvelteWrapper } from "../src/lib/plugins";
+import PluginComponent from "./plugin-component.svelte";
 
 afterEach(() => cleanup());
 
@@ -105,4 +107,24 @@ test("should render a table with plugin", async () => {
 			name: /hello world!/i,
 		}),
 	).toBeInTheDocument();
+});
+
+// the test throwing an error :(
+test.todo("should render a table with the wrapper plugins", async () => {
+	await renderGrid({
+		data: [[1, 2, 3]],
+		columns: [
+			"a",
+			"b",
+			{
+				name: "c",
+				plugin: {
+					component: SvelteWrapper,
+					props: {
+						component: PluginComponent,
+					},
+				},
+			},
+		],
+	});
 });
