@@ -67,6 +67,38 @@ You can use `instance` and bind it with state, you can check the example [here](
 
 > NOTE: if you want to create an advanced plugin, you need to know [React](https://reactjs.org) because Grid.js uses [preact](https://preactjs.com) (an alternative React). If you need help to create an advanced plugin, you can open [discussions](https://github.com/iamyuu/gridjs-svelte/discussions/new) maybe I can help.
 
+## How to formatting cell with Svelte component?
+
+> [Try it out in the browser](https://svelte.dev/repl/e3247cb80c344f95b1fdd2853006f159?version=3.38.0)
+
+```html
+<script>
+	import Grid from "gridjs-svelte";
+	import { SvelteWrapper } from "gridjs-svelte/plugins";
+	import AwesomeComponent from "./components/awesome-component.svelte";
+
+	const columns = [
+		"Name",
+		{
+			name: "Email",
+			plugin: {
+				component: SvelteWrapper,
+				props: {
+					component: AwesomeComponent,
+				},
+			},
+		},
+	];
+
+	const data = [
+		{ name: "John", email: "john@example.com" },
+		{ name: "Mark", email: "mark@gmail.com" },
+	];
+</script>
+
+<Grid {data} {columns} />
+```
+
 ## Contributing
 
 **PRs are welcome!**
