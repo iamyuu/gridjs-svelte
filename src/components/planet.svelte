@@ -4,7 +4,7 @@
 	export let row;
 	export let cell;
 
-	$: title = `Planet ${row._cells[0].data}`;
+	$: title = `Planet ${row.cell(0).data}`;
 
 	let showModal = false;
 
