@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom";
 import { cleanup, render, fireEvent, screen } from "@testing-library/svelte";
+import { h, PluginPosition } from "gridjs";
 import Grid from "../src/lib/gridjs.svelte";
 
 afterEach(() => cleanup());
@@ -85,4 +86,23 @@ test("should receive the event", async () => {
 	fireEvent.click(screen.getAllByRole("cell")[1]);
 
 	expect(mock).toHaveBeenCalledTimes(2);
+});
+
+test("should render a table with plugin", async () => {
+	const headingPlugin = {
+		id: "heading",
+		position: PluginPosition.Header,
+		component: () => h("h1", {}, "Hello World!"),
+	};
+
+	await renderGrid({
+		data: [[1, 2, 3]],
+		plugins: [headingPlugin],
+	});
+
+	expect(
+		screen.getByRole("heading", {
+			name: /hello world!/i,
+		}),
+	).toBeInTheDocument();
 });

@@ -16,6 +16,7 @@
 	export let server: UserConfig["server"] = undefined;
 	export let columns: UserConfig["columns"] = undefined;
 	export let data: UserConfig["data"] = undefined;
+	export let plugins: UserConfig["plugins"] = undefined;
 	export let style: UserConfig["style"] = {};
 	export let className: UserConfig["className"] = {};
 
@@ -32,6 +33,7 @@
 		width,
 		height,
 		autoWidth,
+		plugins,
 		fixedHeader,
 		resizable,
 		style,
