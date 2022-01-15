@@ -5,6 +5,8 @@
 	"description": "A Svelte wrapper component for Grid.js",
 	"scripts": {
 		"build": "svelte-kit package",
+		"dev:web": "svelte-kit dev",
+		"build:web": "svelte-kit build",
 		"test": "vitest run",
 		"test:watch": "vitest watch",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
@@ -23,6 +25,7 @@
 		"svelte": ">=3.30.0"
 	},
 	"devDependencies": {
+		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"@sveltejs/vite-plugin-svelte": "1.0.0-next.34",
 		"@testing-library/jest-dom": "5.16.1",
