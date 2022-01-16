@@ -1,5 +1,5 @@
 <script>
-	import Modal from "./Modal.svelte";
+	import Modal from "./modal.svelte";
 
 	export let row;
 	export let cell;
