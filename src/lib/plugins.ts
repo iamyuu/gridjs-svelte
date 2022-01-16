@@ -1,9 +1,12 @@
-import type { SvelteComponentTyped } from "svelte";
 import { h, createRef as gCreateRef, Component as gComponent } from "gridjs";
 
 interface SvelteWrapperProps {
-	parent?: string;
-	component: SvelteComponentTyped;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	component: any;
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	parentProps?: Record<string, any>;
+	parentElement?: string;
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
@@ -15,16 +18,22 @@ function isFn(val) {
 
 export class SvelteWrapper extends gComponent<SvelteWrapperProps> {
 	static defaultProps = {
-		parent: "div",
+		parentElement: "div",
+		parentProps: {},
 	};
 
 	ref = gCreateRef();
 	instance = null;
 
 	componentDidMount() {
-		const { component: Component, parent: _parent, plugin: _plugin, ...props } = this.props;
+		const {
+			component: Component,
+			parentElement: _parentElement,
+			parentProps: _parentProps,
+			plugin: _plugin,
+			...props
+		} = this.props;
 
-		// @ts-expect-error - https://svelte.dev/docs#run-time-client-side-component-api-creating-a-component
 		this.instance = new Component({ target: this.ref.current, props });
 	}
 
@@ -41,6 +50,6 @@ export class SvelteWrapper extends gComponent<SvelteWrapperProps> {
 	}
 
 	render() {
-		return h(this.props.parent, { ref: this.ref });
+		return h(this.props.parentElement, { ...this.props.parentProps, ref: this.ref });
 	}
 }
