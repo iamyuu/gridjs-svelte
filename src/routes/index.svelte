@@ -11,7 +11,18 @@
 	};
 
 	const className = {
-		header: "table-heading",
+		error: "error",
+	};
+
+	const style = {
+		table: {
+			width: "100%",
+		},
+		header: {
+			display: "flex",
+			alignItems: "center",
+			flexDirection: "row-reverse",
+		},
 	};
 
 	const language = {
@@ -30,6 +41,7 @@
 		"Name",
 		{
 			name: "Gnder",
+			width: "10%",
 			formatter: cell => {
 				if (cell === "n/a") {
 					return "???";
@@ -40,6 +52,7 @@
 		},
 		{
 			name: "Planet",
+			width: "15%",
 			plugin: {
 				component: SvelteWrapper,
 				props: {
@@ -49,6 +62,7 @@
 		},
 		{
 			name: "Action",
+			width: "10%",
 			formatter: (cell, _row) => {
 				return h(
 					"button",
@@ -95,6 +109,7 @@
 	{pagination}
 	{language}
 	{className}
+	{style}
 	plugins={[headingPlugin]}
 	on:ready={onReady}
 	on:cellClick={onCellClick}
@@ -103,17 +118,20 @@
 <style global>
 	@import "https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css";
 
-	.table-heading {
-		display: flex;
-		align-items: center;
-		flex-direction: row-reverse;
+	:root {
+		--primary-color: #ffe300;
+		--error-color: red;
 	}
 
 	.btn {
-		background-color: #ffe300;
+		background-color: var(--primary-color);
 		padding: 0.5rem 1rem;
 		border-width: 0;
 		border-radius: 0.5rem;
 		cursor: pointer;
+	}
+
+	.error {
+		color: var(--error-color);
 	}
 </style>
