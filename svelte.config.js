@@ -7,7 +7,6 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
-		target: "#svelte",
 
 		package: {
 			dir: "dist",

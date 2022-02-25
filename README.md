@@ -10,7 +10,7 @@ npm install gridjs gridjs-svelte
 
 ## Usage
 
-> [Try it out in the browser](https://svelte.dev/repl/9a066ccf55f54173bf5c6c8042142566)
+> [Try it out in the browser](https://svelte.dev/repl/3da1b239563843c4b76ab1b90115821c)
 
 ```html
 <script>

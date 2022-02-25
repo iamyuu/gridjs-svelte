@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
+	import type { Row, Cell } from "gridjs";
 	import Modal from "./modal.svelte";
 
-	export let row;
-	export let cell;
+	export let row: Row;
+	export let cell: Cell;
 
 	$: title = `Planet ${row.cell(0).data}`;
 
@@ -13,7 +14,7 @@
 	}
 </script>
 
-<button on:click={toggleModal}>See detail</button>
+<button class="btn" on:click={toggleModal}>See detail</button>
 
 <!-- for demo purpose -->
 {#if showModal}
@@ -29,13 +30,3 @@
 		</svelte:fragment>
 	</Modal>
 {/if}
-
-<style>
-	button {
-		background-color: #ffe300;
-		padding: 0.5rem 1rem;
-		border-width: 0;
-		border-radius: 0.5rem;
-		cursor: pointer;
-	}
-</style>
