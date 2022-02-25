@@ -23,7 +23,7 @@
 	const server = {
 		url: "https://swapi.dev/api/people",
 		total: data => data.count,
-		then: data => data.results.map(people => [people.name, people.gender, people.homeworld]),
+		then: data => data.results.map(people => [people.name, people.gender, people.homeworld, people.url]),
 	};
 
 	const columns = [
@@ -45,6 +45,19 @@
 				props: {
 					component: Planet,
 				},
+			},
+		},
+		{
+			name: "Action",
+			formatter: (cell, _row) => {
+				return h(
+					"button",
+					{
+						className: "btn",
+						onClick: () => alert(`See the detail on ${cell}`),
+					},
+					"Detail",
+				);
 			},
 		},
 	];
@@ -94,5 +107,13 @@
 		display: flex;
 		align-items: center;
 		flex-direction: row-reverse;
+	}
+
+	.btn {
+		background-color: #ffe300;
+		padding: 0.5rem 1rem;
+		border-width: 0;
+		border-radius: 0.5rem;
+		cursor: pointer;
 	}
 </style>
