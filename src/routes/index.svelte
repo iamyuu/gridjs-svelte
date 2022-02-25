@@ -1,20 +1,30 @@
-<script>
+<script lang="ts">
+	import type { UserConfig } from "gridjs";
+	import type { Plugin } from "gridjs/dist/src/plugin";
+	import type { TableEvents } from "gridjs/dist/src/view/table/events";
+	import type Tabular from "gridjs/dist/src/tabular";
+	import type { People } from "../types/people";
+
 	import { h, PluginPosition } from "gridjs";
 	import Grid from "$lib/gridjs.svelte";
 	import Planet from "../components/planet.svelte";
 	import { SvelteWrapper } from "$lib/plugins";
+	import { Gender } from "../types/people";
 
-	const headingPlugin = {
+	// https://gridjs.io/docs/plugins/basics
+	const headingPlugin: Plugin<any> = {
 		id: "heading",
 		position: PluginPosition.Header,
 		component: () => h("h1", { style: { width: "100%" } }, "Star Wars Peoples"),
 	};
 
-	const className = {
+	// https://gridjs.io/docs/config/className
+	const className: UserConfig["className"] = {
 		error: "error",
 	};
 
-	const style = {
+	// https://gridjs.io/docs/config/style
+	const style: UserConfig["style"] = {
 		table: {
 			width: "100%",
 		},
@@ -25,29 +35,32 @@
 		},
 	};
 
-	const language = {
+	// https://gridjs.io/docs/config/language
+	const language: UserConfig["language"] = {
 		search: {
 			placeholder: "Find people",
 		},
 	};
 
-	const server = {
+	// https://gridjs.io/docs/config/server
+	const server: UserConfig["server"] = {
 		url: "https://swapi.dev/api/people",
-		total: data => data.count,
-		then: data => data.results.map(people => [people.name, people.gender, people.homeworld, people.url]),
+		total: (data: People) => data.count,
+		then: (data: People) => data.results.map(people => [people.name, people.gender, people.homeworld, people.url]),
 	};
 
-	const columns = [
+	// https://gridjs.io/docs/config/columns
+	const columns: UserConfig["columns"] = [
 		"Name",
 		{
 			name: "Gnder",
 			width: "10%",
 			formatter: cell => {
-				if (cell === "n/a") {
+				if (cell === Gender.NA) {
 					return "???";
 				}
 
-				return cell.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+				return cell.toString().replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
 			},
 		},
 		{
@@ -76,7 +89,8 @@
 		},
 	];
 
-	const pagination = {
+	// https://gridjs.io/docs/config/pagination
+	const pagination: UserConfig["pagination"] = {
 		enabled: true,
 		limit: 10,
 		server: {
@@ -85,6 +99,7 @@
 		},
 	};
 
+	// https://gridjs.io/docs/config/search
 	const search = {
 		enabled: true,
 		server: {
@@ -92,26 +107,37 @@
 		},
 	};
 
+	// https://gridjs.io/docs/examples/event-handler
+	// https://github.com/grid-js/gridjs/blob/master/src/view/events.ts#L6
 	function onReady() {
-		console.log("🚀 ~ Grid.js is ready");
+		console.log("🚀 ~ onReady ~ Grid.js is ready");
 	}
 
-	function onLoad(event) {
-		console.table("🚀 ~ currently rendered items:", event.detail._rows);
+	// https://gridjs.io/docs/examples/event-handler
+	// https://github.com/grid-js/gridjs/blob/master/src/view/events.ts#L5
+	function onLoad(event: CustomEvent<Tabular>) {
+		// @ts-expect-error - (for demo purpose) actually `_length` is private property
+		console.table("🚀 ~ onLoad ~ people count", event.detail._length);
 	}
 
+	// https://gridjs.io/docs/examples/event-handler
+	// https://github.com/grid-js/gridjs/blob/master/src/view/events.ts#L4
 	function onBeforeLoad() {
-		console.log("🚀 ~ fired onBeforeLoad function");
+		console.log("🚀 ~ onBeforeLoad ~ fired onBeforeLoad function");
 	}
 
-	function onCellClick(event) {
-		const [_pointerEvent, { data }] = Object.values(event.detail);
-		console.log(`🚀 ~ clicked cell:`, data);
+	// https://gridjs.io/docs/examples/event-handler
+	// https://github.com/grid-js/gridjs/blob/master/src/view/table/events.ts#L6-L11
+	function onCellClick(event: CustomEvent<TableEvents["cellClick"]>) {
+		const [_e, { data }] = Object.values(event.detail);
+		console.log(`🚀 ~ onCellClick ~ clicked cell:`, data);
 	}
 
-	function onRowClick(event) {
-		const [_pointerEvent, row] = Object.values(event.detail);
-		console.log(`🚀 ~ clicked row:`, row.cell(0).data, row.cell(3).data);
+	// https://gridjs.io/docs/examples/event-handler
+	// https://github.com/grid-js/gridjs/blob/master/src/view/table/events.ts#L12
+	function onRowClick(event: CustomEvent<TableEvents["rowClick"]>) {
+		const [_e, row] = Object.values(event.detail);
+		console.log(`🚀 ~ onRowClick ~ clicked row:`, row.cell(0).data, row.cell(3).data);
 	}
 </script>
 
@@ -124,8 +150,8 @@
 	{className}
 	{style}
 	plugins={[headingPlugin]}
-	on:ready={onReady}
 	on:load={onLoad}
+	on:ready={onReady}
 	on:beforeLoad={onBeforeLoad}
 	on:cellClick={onCellClick}
 	on:rowClick={onRowClick}

@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
+	import type { Row, Cell } from "gridjs";
 	import Modal from "./modal.svelte";
 
-	export let row;
-	export let cell;
+	export let row: Row;
+	export let cell: Cell;
 
 	$: title = `Planet ${row.cell(0).data}`;
 
