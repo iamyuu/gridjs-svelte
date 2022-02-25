@@ -93,12 +93,25 @@
 	};
 
 	function onReady() {
-		console.log("Grid.js is ready");
+		console.log("🚀 ~ Grid.js is ready");
+	}
+
+	function onLoad(event) {
+		console.table("🚀 ~ currently rendered items:", event.detail._rows);
+	}
+
+	function onBeforeLoad() {
+		console.log("🚀 ~ fired onBeforeLoad function");
 	}
 
 	function onCellClick(event) {
 		const [_pointerEvent, { data }] = Object.values(event.detail);
-		console.log(`🚀 ~ onCellClick`, data);
+		console.log(`🚀 ~ clicked cell:`, data);
+	}
+
+	function onRowClick(event) {
+		const [_pointerEvent, row] = Object.values(event.detail);
+		console.log(`🚀 ~ clicked row:`, row.cell(0).data, row.cell(3).data);
 	}
 </script>
 
@@ -112,7 +125,10 @@
 	{style}
 	plugins={[headingPlugin]}
 	on:ready={onReady}
+	on:load={onLoad}
+	on:beforeLoad={onBeforeLoad}
 	on:cellClick={onCellClick}
+	on:rowClick={onRowClick}
 />
 
 <style global>
