@@ -10,8 +10,6 @@ npm install gridjs gridjs-svelte
 
 ## Usage
 
-> [Try it out in the browser](https://svelte.dev/repl/3da1b239563843c4b76ab1b90115821c)
-
 ```html
 <script>
 	import Grid from "gridjs-svelte";
@@ -29,75 +27,20 @@ npm install gridjs gridjs-svelte
 </style>
 ```
 
-Check the [example](https://github.com/iamyuu/gridjs-svelte/blob/main/src/routes/index.svelte) for more detail.
-
 > You can pass all Grid.js configs, refer to [Grid.js types](https://github.com/grid-js/gridjs/blob/master/src/config.ts) for specific configuration options.
 
-## How to get instance?
+## Example
 
-You can use `instance` and bind it with state, you can check the example [here](https://svelte.dev/repl/c779df2be3d64008b3b83fbd091df429?version=3.38.0) or you can see tutorial for how to [bindings component](https://svelte.dev/tutorial/component-bindings).
-
-```diff
-<script>
-  import Grid from "gridjs-svelte"
-
-+  let grid
-
-  const data = [
-    { name: "John", email: "john@example.com" },
-    { name: "Mark", email: "mark@gmail.com" },
-  ]
-</script>
-
-- <Grid {data} />
-+ <Grid bind:instance={grid} {data} />
-```
-
-## How to add plugin?
-
-> [Try it out in the browser](https://svelte.dev/repl/9a066ccf55f54173bf5c6c8042142566?version=3.38.0)
-
-1. Write a plugin, you can see how to write the plugin on [plugin basic](https://gridjs.io/docs/plugin/writing-plugin) section.
-2. Put the list of plugins into `plugins` props.
-
-```diff
-- <Grid {data} />
-+ <Grid {data} plugins={[awesomePlugin]} />
-```
-
-> NOTE: if you want to create an advanced plugin, you need to know [React](https://reactjs.org) because Grid.js uses [preact](https://preactjs.com) (an alternative React). If you need help to create an advanced plugin, you can open [discussions](https://github.com/iamyuu/gridjs-svelte/discussions/new) maybe I can help.
-
-## How to formatting cell with Svelte component?
-
-> [Try it out in the browser](https://svelte.dev/repl/e3247cb80c344f95b1fdd2853006f159?version=3.38.0)
-
-```html
-<script>
-	import Grid from "gridjs-svelte";
-	import { SvelteWrapper } from "gridjs-svelte/plugins";
-	import AwesomeComponent from "./components/awesome-component.svelte";
-
-	const columns = [
-		"Name",
-		{
-			name: "Email",
-			plugin: {
-				component: SvelteWrapper,
-				props: {
-					component: AwesomeComponent,
-				},
-			},
-		},
-	];
-
-	const data = [
-		{ name: "John", email: "john@example.com" },
-		{ name: "Mark", email: "mark@gmail.com" },
-	];
-</script>
-
-<Grid {data} {columns} />
-```
+- [Basic](https://svelte.dev/repl/3da1b239563843c4b76ab1b90115821c)
+- [Custom Style](https://svelte.dev/repl/d6fffbcd8ce0409c8bdb4a7c2e7df63c)
+- [Action Button](https://svelte.dev/repl/80eca12417414c7eabc79756c5a8f464)
+- [Server side](https://svelte.dev/repl/e772220feac54e65b132615ac4d8eb09)
+- [Event](https://svelte.dev/repl/318d3daa2ed2402cbeb965f7317c1071)
+- [Plugin](https://svelte.dev/repl/9a066ccf55f54173bf5c6c8042142566)
+- [HTML in cell](https://svelte.dev/repl/3c6d68ee5793465fb19b16b3d6831d57)
+- [Svelte component in cell](https://svelte.dev/repl/e3247cb80c344f95b1fdd2853006f159)
+- [forceRender](https://svelte.dev/repl/c779df2be3d64008b3b83fbd091df429)
+- [Star Wars](https://svelte.dev/repl/0c77bee765c1458d825a4df13aefb5a4)
 
 ## Contributing
 

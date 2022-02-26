@@ -100,7 +100,7 @@
 	};
 
 	// https://gridjs.io/docs/config/search
-	const search = {
+	const search: UserConfig["search"] = {
 		enabled: true,
 		server: {
 			url: (prev, keyword) => `${prev}?search=${keyword}`,
