@@ -7,8 +7,13 @@ import SvelteComponent from "./component.svelte";
 
 afterEach(() => cleanup());
 
-async function renderGrid(props = {}) {
-	const svl = render(Grid, { props });
+async function renderGrid(overrideProps = {}) {
+	const svl = render(Grid, {
+		props: {
+			data: [[1, 2, 3]],
+			...overrideProps,
+		},
+	});
 
 	await new Promise(setImmediate);
 
@@ -16,18 +21,14 @@ async function renderGrid(props = {}) {
 }
 
 test("should render gridjs", async () => {
-	await renderGrid({
-		data: [[1, 2, 3]],
-	});
+	await renderGrid();
 
 	expect(screen.getByRole("complementary")).toHaveClass("gridjs gridjs-container");
 	expect(screen.getByRole("grid")).toHaveClass("gridjs-table");
 });
 
 test("should render a table without header", async () => {
-	await renderGrid({
-		data: [[1, 2, 3]],
-	});
+	await renderGrid();
 
 	expect(screen.getAllByRole("rowgroup")).toHaveLength(1);
 	expect(screen.getAllByRole("row")).toHaveLength(1);
@@ -36,7 +37,6 @@ test("should render a table without header", async () => {
 
 test("should render a table with headers", async () => {
 	await renderGrid({
-		data: [[1, 2, 3]],
 		columns: ["a", "b", "c"],
 	});
 
@@ -47,7 +47,6 @@ test("should render a table with headers", async () => {
 
 test("should render a table with search", async () => {
 	await renderGrid({
-		data: [[1, 2, 3]],
 		columns: ["a", "b", "c"],
 		search: true,
 	});
@@ -55,7 +54,7 @@ test("should render a table with search", async () => {
 	expect(screen.getByRole("searchbox")).toBeInTheDocument();
 });
 
-test("should render a table with search and pagination", async () => {
+test("should render a table with pagination", async () => {
 	const { container } = await renderGrid({
 		data: [
 			[1, 2, 3],
@@ -63,22 +62,23 @@ test("should render a table with search and pagination", async () => {
 			[7, 8, 9],
 		],
 		columns: ["a", "b", "c"],
-		search: true,
 		pagination: {
 			enabled: true,
 			limit: 1,
 		},
 	});
 
-	expect(screen.getByRole("searchbox")).toBeInTheDocument();
 	expect(container.querySelector(".gridjs-pagination")).toBeInTheDocument();
+	expect(screen.getByRole("button", { name: /page 1/i })).toBeInTheDocument();
+	expect(screen.getByRole("button", { name: /page 2/i })).toBeInTheDocument();
+	expect(screen.getByRole("button", { name: /page 3/i })).toBeInTheDocument();
+
 	expect(screen.getByRole("status")).toBeInTheDocument();
+	expect(screen.getByRole("status", { name: /page 1 of 3/i })).toBeInTheDocument();
 });
 
 test("should receive the event", async () => {
-	const { component } = await renderGrid({
-		data: [[1, 2, 3]],
-	});
+	const { component } = await renderGrid();
 
 	const mock = vi.fn();
 
@@ -98,20 +98,14 @@ test("should render a table with plugin", async () => {
 	};
 
 	await renderGrid({
-		data: [[1, 2, 3]],
 		plugins: [headingPlugin],
 	});
 
-	expect(
-		screen.getByRole("heading", {
-			name: /hello world!/i,
-		}),
-	).toBeInTheDocument();
+	expect(screen.getByRole("heading", { name: /hello world!/i })).toBeInTheDocument();
 });
 
 test("should render a table with the wrapper plugin", async () => {
 	await renderGrid({
-		data: [[1, 2, 3]],
 		columns: [
 			"a",
 			"b",
@@ -132,7 +126,6 @@ test("should render a table with the wrapper plugin", async () => {
 
 test("should allow for change element and add props to parent wrapper plugin", async () => {
 	await renderGrid({
-		data: [[1, 2, 3]],
 		columns: [
 			"a",
 			"b",
