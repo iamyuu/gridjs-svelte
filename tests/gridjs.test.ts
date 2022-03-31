@@ -77,10 +77,22 @@ test("should render a table with pagination", async () => {
 	expect(screen.getByRole("status", { name: /page 1 of 3/i })).toBeInTheDocument();
 });
 
-test.only("should force render when config changes", async () => {
-	await renderGrid();
+test("should force render when config changes", async () => {
+	const { container, component } = await renderGrid();
 
-	screen.debug();
+	expect(container.querySelector(".gridjs-search")).not.toBeInTheDocument();
+	expect(container.querySelector(".gridjs-pagination")).not.toBeInTheDocument();
+
+	await component.$set({
+		search: true,
+		pagination: {
+			nabled: true,
+			limit: 1,
+		},
+	});
+
+	expect(container.querySelector(".gridjs-search")).toBeInTheDocument();
+	expect(container.querySelector(".gridjs-pagination")).toBeInTheDocument();
 });
 
 test("should receive the event", async () => {
