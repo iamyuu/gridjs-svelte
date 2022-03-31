@@ -52,6 +52,28 @@
 	instance.on("load", data => dispatch("load", { ...data }));
 	instance.on("ready", () => dispatch("ready"));
 
+	$: if (node) {
+		instance
+			.updateConfig({
+				from,
+				data,
+				columns,
+				server,
+				search,
+				sort,
+				pagination,
+				language,
+				width,
+				height,
+				autoWidth,
+				fixedHeader,
+				style,
+				className,
+				resizable,
+			})
+			.forceRender();
+	}
+
 	onMount(() => {
 		if (node) {
 			instance.render(node);

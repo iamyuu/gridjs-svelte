@@ -77,6 +77,12 @@ test("should render a table with pagination", async () => {
 	expect(screen.getByRole("status", { name: /page 1 of 3/i })).toBeInTheDocument();
 });
 
+test.only("should force render when config changes", async () => {
+	await renderGrid();
+
+	screen.debug();
+});
+
 test("should receive the event", async () => {
 	const { component } = await renderGrid();
 
