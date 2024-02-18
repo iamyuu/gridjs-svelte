@@ -54,5 +54,11 @@
 	"bugs": {
 		"url": "https://github.com/iamyuu/gridjs-svelte/issues"
 	},
-	"homepage": "https://gridjs.io/docs/integrations/svelte"
+	"homepage": "https://gridjs.io/docs/integrations/svelte",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "svelte": "./index.js"
+    },
+  }
 }
